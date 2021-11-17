@@ -2,6 +2,8 @@ package pros.unicam.spm2021.practice.Selenium;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 class SeleniumTest {
@@ -44,9 +47,9 @@ class SeleniumTest {
 		//if(System.getProperty("os.name").equals("Mac OS X")) {
 		System.setProperty("webdriver.chrome.driver", projectPath+"/drivers/mac/chromedriver");
 		//}
-		/*if(System.getProperty("os.name").contains("Windows")) {
-			System.setProperty("webdriver.chrome.driver", projectPath+"\\drivers\\windows\\chromedriver.exe");
-		}*/
+		if(System.getProperty("os.name").contains("Windows")) {
+			System.setProperty("webdriver.chrome.driver",projectPath+"/src/test/java/pros/unicam/spm2021/practice/chromedriver.exe");
+		}
 		driver = new ChromeDriver();
 	}
 
@@ -60,52 +63,58 @@ class SeleniumTest {
 	}
 
 	@Test
-	@Disabled
+	//@Disabled
 	void checkProsSite() throws InterruptedException {
 		
-		driver.get("http://pros.unicam.it/");
+		driver.get("http://localhost:8080/spm2021/");
 
 		Thread.sleep(3000);
 		
 		String at = driver.getTitle();
-		String et = "PROS";
+		String et = "SPM 2021";
 		
 		//System.out.println(at);		
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 
 		Assert.assertEquals(et,at);
-		
 		
 	}
 	
 	@Test
-	@Disabled
+	//@Disabled
 	void checkProsSiteSearch() throws InterruptedException {
 		
 		// navigate your driver to mail.google.com
 		driver.get("http://pros.unicam.it/");
 
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		
 		//Find Element by className
 		driver.findElement(By.className("toggle-search")).click();
 		
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		
 		driver.findElement(By.className("search")).click();
 		
+		Thread.sleep(3000);
+		
+		driver.findElement(By.className("search")).sendKeys("bprove"+ "\n");
+
 		Thread.sleep(4000);
+		Boolean bool=true;
+		List<WebElement> list = driver.findElements(By.className("type-portfolio-title"));
+		for(WebElement element : list){
+			if(!element.getText().toLowerCase().contains("bprove"))
+			bool= false;
+		}
+
+		assertTrue(bool);
 		
-		driver.findElement(By.className("search")).sendKeys("bprove");
-		
-		Thread.sleep(4000);
-		
-		//TO COMPLETE
 			
 	}
 	
 	@Test
-	@Disabled
+	//@Disabled
 	void checkThisWebAppTitle() throws InterruptedException {
 		
 		driver.get("http://localhost:8080/spm2021/");
@@ -119,7 +128,6 @@ class SeleniumTest {
 		Thread.sleep(4000);
 
 		Assert.assertEquals(et,at);
-		
 		
 	}
 
