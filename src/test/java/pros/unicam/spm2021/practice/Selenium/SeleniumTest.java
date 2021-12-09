@@ -81,7 +81,7 @@ class SeleniumTest {
 	}
 	
 	@Test
-	//@Disabled
+	@Disabled
 	void checkProsSiteSearch() throws InterruptedException {
 		
 		// navigate your driver to mail.google.com
