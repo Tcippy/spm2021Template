@@ -74,7 +74,7 @@ class SeleniumTest {
 	}
 
 	@Test
-	//@Disabled
+	@Disabled
 	void checkProsSite() throws InterruptedException {
 		
 		driver.get("http://localhost:8080/spm2021/");
@@ -125,7 +125,7 @@ class SeleniumTest {
 	}
 	
 	@Test
-	//@Disabled
+	@Disabled
 	void checkThisWebAppTitle() throws InterruptedException {
 		
 		driver.get("http://localhost:8080/spm2021/");
