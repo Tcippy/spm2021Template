@@ -3,6 +3,7 @@ package pros.unicam.spm2021.practice.Selenium;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
@@ -15,6 +16,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 class SeleniumTest {
 
@@ -45,12 +49,19 @@ class SeleniumTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		//if(System.getProperty("os.name").equals("Mac OS X")) {
-		System.setProperty("webdriver.chrome.driver", projectPath+"/drivers/mac/chromedriver");
+		//System.setProperty("webdriver.chrome.driver", projectPath+"/drivers/mac/chromedriver");
 		//}
-		if(System.getProperty("os.name").contains("Windows")) {
+		/* if(System.getProperty("os.name").contains("Windows")) {
 			System.setProperty("webdriver.chrome.driver",projectPath+"/src/test/java/pros/unicam/spm2021/practice/chromedriver.exe");
 		}
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(); */
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("-no-sandbox");
+		options.addArguments("--disable-sev-shm-usage");
+		options.addArguments("--headless");
+		driver = new ChromeDriver(options);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
 	/**
